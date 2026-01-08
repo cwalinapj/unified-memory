@@ -172,6 +172,38 @@ def get_memories(
     return results
 
 
+def search_memories(
+    query: str = "",
+    memory_type: Optional[MemoryType] = None,
+    limit: int = 10,
+    path: Path = DEFAULT_LOCAL_PATH,
+) -> List[dict]:
+    """
+    Search memories by text query and/or type.
+    
+    Simple keyword matching - returns memories where content contains query.
+    """
+    store = load_memories(path)
+    query_lower = query.lower()
+    
+    results = []
+    for mem in store["memories"]:
+        # Filter by type
+        if memory_type and mem["type"] != memory_type:
+            continue
+        # Filter by query (case-insensitive content search)
+        if query and query_lower not in mem.get("content", "").lower():
+            # Also check tags
+            if not any(query_lower in t.lower() for t in mem.get("tags", [])):
+                continue
+        results.append(mem)
+    
+    # Sort by authority (highest first)
+    results.sort(key=lambda m: TYPE_METADATA[m["type"]]["authority"], reverse=True)
+    
+    return results[:limit]
+
+
 def get_context_summary(context: Optional[str] = None, path: Path = DEFAULT_LOCAL_PATH) -> str:
     """
     Generate a human-readable summary for Claude to read at conversation start.
