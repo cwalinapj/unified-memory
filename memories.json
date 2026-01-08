@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_sync": "2026-01-08T16:05:04.265629+00:00",
+  "last_sync": "2026-01-08T16:10:38.758620+00:00",
   "memories": [
     {
       "id": "decd9615",
@@ -18935,6 +18935,42 @@
       "provenance": {
         "source": "Code validation pipeline working: E2B sandbox + GPT-4o audit. OpenAI key sk-proj-hYcX... is valid. Stored in ~/.env.origin-os",
         "timestamp": "2026-01-08T16:05:04.262615+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "fa137c28",
+      "type": "procedure",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "Code validation pipeline before mac-agent push: 1) python3 -c compile() for syntax 2) E2B sandbox execution via Sandbox.create() 3) GPT-4o/GPT-5-Codex audit via OpenAI API. All 3 must pass.",
+        "timestamp": "2026-01-08T16:10:05.197206+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "b65f51f4",
+      "type": "procedure",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "Mac-agent LAM protocol: JSON signals only, no English. Actions: MEM_NEW, MEM_REQ, MEM_ACK, SYNC_OK, OBS, QRY, ESC. Signals stored in unified-memory/signals/*.json",
+        "timestamp": "2026-01-08T16:10:31.632429+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "e1120fd3",
+      "type": "procedure",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "Install mac-agent daemon: chmod +x scripts/install-daemon.sh && ./scripts/install-daemon.sh. Auto-detects OS: macOS uses launchd, Linux uses systemd, fallback to cron.",
+        "timestamp": "2026-01-08T16:10:38.755663+00:00",
         "agent_id": null,
         "conversation_id": null
       }
