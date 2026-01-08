@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_sync": "2026-01-08T15:54:34.883088+00:00",
+  "last_sync": "2026-01-08T16:05:04.265629+00:00",
   "memories": [
     {
       "id": "decd9615",
@@ -18885,6 +18885,56 @@
       "provenance": {
         "source": "E2B sandbox API key stored in ~/.env.origin-os as E2B_API_KEY",
         "timestamp": "2026-01-08T15:54:34.879985+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "a04ee488",
+      "type": "constraint",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "Before asking user for anything: 1) Search filesystem for existing credentials/config 2) Search web for solutions 3) Check if I can generate/create it myself 4) Only ask user as last resort. Log why self-service failed.",
+        "timestamp": "2026-01-08T15:55:58.813777+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      },
+      "rationale": "User feedback: stop asking, be autonomous. Agent should exhaust all self-service options before requesting user input."
+    },
+    {
+      "id": "c539f481",
+      "type": "observation",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "OpenRouter API key sk-or-v1-9bd6... from ~/.env is invalid (401 User not found). OpenAI key sk-proj-... is also invalid. Need fresh keys for code audit.",
+        "timestamp": "2026-01-08T16:02:25.163043+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "5e5f2abd",
+      "type": "constraint",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "BEFORE asking user for ANYTHING: 1) Ask self why cannot solve independently 2) Log reasoning to unified-memory 3) Query GPT-5.2-pro with log and ask for solutions 4) Try GPT-5.2-pro suggestions 5) If GPT-5.2-pro also fails, update memory noting both failed 6) ONLY THEN ask user. This is TIER-1 - always enforce.",
+        "timestamp": "2026-01-08T16:04:18.749962+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      },
+      "rationale": "User explicit requirement: exhaust all self-service AND LLM consultation before asking user. Creates audit trail of problem-solving attempts."
+    },
+    {
+      "id": "df7662ff",
+      "type": "observation",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "Code validation pipeline working: E2B sandbox + GPT-4o audit. OpenAI key sk-proj-hYcX... is valid. Stored in ~/.env.origin-os",
+        "timestamp": "2026-01-08T16:05:04.262615+00:00",
         "agent_id": null,
         "conversation_id": null
       }
