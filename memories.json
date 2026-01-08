@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_sync": "2026-01-08T15:51:34.209309+00:00",
+  "last_sync": "2026-01-08T15:54:34.883088+00:00",
   "memories": [
     {
       "id": "decd9615",
@@ -18863,6 +18863,31 @@
         "conversation_id": null
       },
       "rationale": "User requirement: all code must be validated in eb2 sandbox and audited by gpt-5-codex before pushing to mac-agent repository."
+    },
+    {
+      "id": "75221909",
+      "type": "constraint",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "Form new memories after EVERY chat session with user. No exceptions. This is mandatory behavior for knowledge retention and agent training.",
+        "timestamp": "2026-01-08T15:54:29.176329+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      },
+      "rationale": "User explicit requirement: form memories after each chat, every single time."
+    },
+    {
+      "id": "eab249d4",
+      "type": "observation",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "E2B sandbox API key stored in ~/.env.origin-os as E2B_API_KEY",
+        "timestamp": "2026-01-08T15:54:34.879985+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
     }
   ],
   "session_log": {
