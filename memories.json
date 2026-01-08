@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_sync": "2026-01-08T14:47:20.036880+00:00",
+  "last_sync": "2026-01-08T15:42:23.523566+00:00",
   "memories": [
     {
       "id": "decd9615",
@@ -18750,6 +18750,106 @@
         "agent_id": "mac-agent-v1",
         "conversation_id": null
       }
+    },
+    {
+      "id": "3b3abeb6",
+      "type": "procedure",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "RunPod SSH requires PTY allocation. Standard SSH commands fail with \"Your SSH client does not support PTY\". Solution: Use expect scripts to spawn interactive SSH sessions. Example: expect -c \"spawn ssh -tt user@ssh.runpod.io; expect #; send command; expect eof\"",
+        "timestamp": "2026-01-08T15:41:32.240066+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "28f3b9ce",
+      "type": "procedure",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "RunPod API for pod management: Use GraphQL at https://api.runpod.io/graphql with Authorization: Bearer <api_key>. Key mutations: podFindAndDeployOnDemand (create), podResume (start), podTerminate (stop), podReset (restart). Query pod status with runtime field - null means not running.",
+        "timestamp": "2026-01-08T15:41:38.518676+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "3eb0778a",
+      "type": "lesson",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "RunPod volume mount errors: \"field Target must not be empty\" means volumeInGb parameter is invalid. Fix: Remove volumeInGb and use only containerDiskInGb for container storage instead of persistent volumes.",
+        "timestamp": "2026-01-08T15:41:44.126797+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      },
+      "confidence": 0.9
+    },
+    {
+      "id": "cb0194a9",
+      "type": "procedure",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "RunPod pod creation via API: mutation podFindAndDeployOnDemand(input: { cloudType: COMMUNITY, gpuCount: 1, containerDiskInGb: 50, gpuTypeId: \"NVIDIA GeForce RTX 4080\", name: \"pod-name\", imageName: \"runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04\", ports: \"8000/http,8888/http,22/tcp\" })",
+        "timestamp": "2026-01-08T15:41:50.685846+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "0f74da2c",
+      "type": "procedure",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "Expect script for RunPod SSH automation: Create .exp file with spawn ssh -tt user@ssh.runpod.io, use expect \"#\" to wait for prompt, send \"command\\r\" to execute, end with expect eof. Run with: expect script.exp",
+        "timestamp": "2026-01-08T15:41:55.712730+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "8a1a4c33",
+      "type": "constraint",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "Never ask user to run commands manually. As an agent, always execute commands programmatically via API, expect scripts, Terminal.app automation, or other means.",
+        "timestamp": "2026-01-08T15:42:11.101669+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      },
+      "rationale": "User explicitly stated: you are my agent. Agents should act autonomously, not delegate back to users."
+    },
+    {
+      "id": "52398914",
+      "type": "lesson",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "When waiting for cloud services (pods, containers) to start, check logs immediately rather than polling status repeatedly. Logs reveal errors faster than status checks. User feedback: learn to check logs quicker.",
+        "timestamp": "2026-01-08T15:42:17.099161+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      },
+      "confidence": 0.95
+    },
+    {
+      "id": "2c70f510",
+      "type": "lesson",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "When Claude encounters repeated failures or obstacles, escalate the task to mac-agent rather than continuing to struggle. mac-agent may have different capabilities or approaches. User feedback: put issues to mac-agent when having trouble.",
+        "timestamp": "2026-01-08T15:42:23.520058+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      },
+      "confidence": 0.9
     }
   ],
   "session_log": {
