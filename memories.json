@@ -1,22 +1,285 @@
 {
   "version": "1.0.0",
-  "last_sync": "2026-01-08T15:10:00.000000+00:00",
+  "last_sync": "2026-01-08T15:15:00.000000+00:00",
   "memories": [
     {
       "id": "decd9615",
       "type": "preference",
       "content": "Paul prefers concise responses without excessive formatting",
-      "tags": [],
+      "tags": ["communication"],
       "provenance": {
         "source": "claude",
         "timestamp": "2026-01-08T14:08:36.922808+00:00",
         "agent_id": null,
         "conversation_id": null
       }
+    },
+    {
+      "id": "c001sec1",
+      "type": "constraint",
+      "content": "All API keys and secrets stored in HashiCorp Vault, never in .env files or code",
+      "rationale": "Security requirement - single source of truth for secrets, audit trail, rotation support",
+      "tags": ["security", "secrets", "origin-os"],
+      "context": "origin-os",
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "c002arch",
+      "type": "constraint",
+      "content": "Client websites are immutable references - never modify original, only create proxy experiment containers",
+      "rationale": "Container-on-container architecture principle - originals are sacred, experiments are ephemeral",
+      "tags": ["architecture", "containers", "origin-os"],
+      "context": "origin-os",
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "c003mem",
+      "type": "constraint",
+      "content": "Agent memories must use the 8 canonical types with proper provenance - no untyped memory storage",
+      "rationale": "Schema-driven architecture prevents drift, enables conflict resolution and promotion paths",
+      "tags": ["memory", "agents", "origin-os"],
+      "context": "origin-os",
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "d001cont",
+      "type": "decision",
+      "content": "Origin OS uses container-on-container architecture with LLMs as hypervisors",
+      "rationale": "Containers provide isolation, reproducibility, and sandboxing for agent experimentation",
+      "tags": ["architecture", "core", "origin-os"],
+      "context": "origin-os",
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "d002poc",
+      "type": "decision",
+      "content": "Supreme X Detail serves as proof-of-concept for Origin OS retail optimization capabilities",
+      "rationale": "Own business provides full control for experimentation, real revenue data, and demonstrable ROI for future partners",
+      "tags": ["business", "supreme-x-detail", "origin-os"],
+      "context": "origin-os",
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "d003log",
+      "type": "decision",
+      "content": "All container debug logs go to S3 with automatic credential management",
+      "rationale": "Centralized logging enables debugging across ephemeral containers, cost-effective storage",
+      "tags": ["logging", "debugging", "infrastructure"],
+      "context": "origin-os",
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "d004edge",
+      "type": "decision",
+      "content": "Edge inference targets 5ms latency using Hailo-8 and similar accelerators",
+      "rationale": "Real-time retail monitoring requires sub-10ms response, Hailo-8 provides best power/performance ratio",
+      "tags": ["hardware", "edge", "inference"],
+      "context": "origin-os",
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "p001mcp",
+      "type": "procedure",
+      "content": "After MCP config changes: 1) Stop container, 2) Clear cache, 3) Restart container, 4) Verify connection",
+      "tags": ["mcp", "debugging", "containers"],
+      "context": "origin-os",
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "p002chk",
+      "type": "procedure",
+      "content": "Session checkpointing: Call checkpoint() after completing significant work, update next_steps list, check for blockers",
+      "tags": ["memory", "recovery", "claude"],
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "p003rec",
+      "type": "procedure",
+      "content": "Crash recovery: 1) Run 'python3 ~/unified-memory/scripts/memory_client.py recover', 2) Read active_task, 3) Resume from next_steps",
+      "tags": ["memory", "recovery", "claude"],
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "g001sxd",
+      "type": "goal",
+      "content": "Launch Supreme X Detail automated booking and follow-up system",
+      "tags": ["supreme-x-detail", "automation"],
+      "expires_at": "2026-03-01T00:00:00.000000+00:00",
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "g002mem",
+      "type": "goal",
+      "content": "Complete unified memory framework with GitHub sync and migration tools",
+      "tags": ["memory", "infrastructure"],
+      "expires_at": "2026-01-15T00:00:00.000000+00:00",
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "l001tbw",
+      "type": "lesson",
+      "content": "Thunderbolt bandwidth becomes bottleneck before storage speed for container orchestration",
+      "confidence": 0.9,
+      "tags": ["hardware", "storage", "containers"],
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "l002cdn",
+      "type": "lesson",
+      "content": "CDN-to-origin latency should target sub-20ms; colocate with CDN PoPs and use HTTP/2+ with connection reuse",
+      "confidence": 0.85,
+      "tags": ["infrastructure", "cdn", "latency"],
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "l003rst",
+      "type": "lesson",
+      "content": "Container restart required after MCP config changes - hot reload not reliable",
+      "confidence": 0.95,
+      "tags": ["mcp", "containers", "debugging"],
+      "context": "origin-os",
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "o001hw",
+      "type": "observation",
+      "content": "Hardware inventory: Multiple Raspberry Pi units, Hailo-8, DX-M1, OAK-D cameras, various microcontrollers",
+      "tags": ["hardware", "inventory"],
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "o002git",
+      "type": "observation",
+      "content": "GitHub username: cwalinapj",
+      "tags": ["accounts", "github"],
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "o003loc",
+      "type": "observation",
+      "content": "Supreme X Detail operates in Reno and Sparks, Nevada",
+      "tags": ["supreme-x-detail", "location"],
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "h001eqy",
+      "type": "hypothesis",
+      "content": "Equity-based partnership model (% of profit increase) will be more attractive to retail partners than upfront licensing",
+      "confidence": 0.7,
+      "tags": ["business", "partnerships", "origin-os"],
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "h002net",
+      "type": "hypothesis",
+      "content": "Network effects from collective learning across partner stores will compound optimization gains",
+      "confidence": 0.75,
+      "tags": ["business", "ml", "origin-os"],
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T15:15:00.000000+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
     }
   ],
   "session_log": {
-    "last_checkpoint": "2026-01-08T15:10:00.000000+00:00",
+    "last_checkpoint": "2026-01-08T15:15:00.000000+00:00",
     "active_task": {
       "name": "unified-memory-framework-setup",
       "description": "Building unified memory substrate for Claude + Origin OS agents",
@@ -28,15 +291,16 @@
         "Wrote migrate_existing.py for legacy memory import",
         "Installed skill to /mnt/skills/user/unified-memory-framework/",
         "Initialized memories.json with 1 preference memory",
-        "Added session checkpoint functions to memory_client.py (get_session_state, checkpoint, start_task, end_task, get_recovery_context)",
+        "Added session checkpoint functions to memory_client.py",
         "Created README.md with recovery protocol documentation",
         "GitHub repo cwalinapj/unified-memory created by Paul",
-        "Git initialized locally, remote added, initial commit pushed to main"
+        "Git initialized locally, remote added, initial commit pushed to main",
+        "Seeded 21 foundational memories (3 constraints, 4 decisions, 3 procedures, 2 goals, 3 lessons, 3 observations, 2 hypotheses, 1 preference)"
       ],
       "next_steps": [
-        "Seed foundational memories (constraints, decisions, procedures)",
         "Run migration dry-run to preview legacy imports",
-        "Push updated memories.json to GitHub"
+        "Push seeded memories to GitHub",
+        "End task or continue with additional setup"
       ],
       "blockers": []
     },
