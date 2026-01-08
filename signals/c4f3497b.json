@@ -1,0 +1,10 @@
+{
+  "id": "c4f3497b",
+  "ts": "2026-01-08T20:38:42.681938+00:00",
+  "src": "mac-agent",
+  "act": "SYNC_OK",
+  "data": {
+    "status": "ok"
+  },
+  "ack": false
+}
