@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_sync": "2026-01-08T16:25:54.068828+00:00",
+  "last_sync": "2026-01-08T16:34:39.286243+00:00",
   "memories": [
     {
       "id": "decd9615",
@@ -19024,6 +19024,32 @@
         "agent_id": null,
         "conversation_id": null
       }
+    },
+    {
+      "id": "84d5ab3d",
+      "type": "lesson",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "E2B validation must install deps before testing. Pipeline: 1) extract_imports() via AST 2) get_packages_to_install() maps import to pip 3) sandbox.commands.run(pip install) 4) THEN run_code(). Without step 3, files with deps fail falsely.",
+        "timestamp": "2026-01-08T16:34:25.290513+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      },
+      "confidence": 1.0
+    },
+    {
+      "id": "a423e616",
+      "type": "lesson",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "detect_critical_issues() must distinguish ACTUAL vulnerabilities from ADVISORY warnings. Advisory phrases like ensure that, consider, should be indicate recommendations, not findings. Only block on patterns like injection detected, exploit found, hardcoded secret:",
+        "timestamp": "2026-01-08T16:34:39.283162+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      },
+      "confidence": 1.0
     }
   ],
   "session_log": {
