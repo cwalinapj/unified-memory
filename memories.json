@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_sync": "2026-01-08T15:42:23.523566+00:00",
+  "last_sync": "2026-01-08T15:51:34.209309+00:00",
   "memories": [
     {
       "id": "decd9615",
@@ -18850,6 +18850,19 @@
         "conversation_id": null
       },
       "confidence": 0.9
+    },
+    {
+      "id": "12fd5d1a",
+      "type": "constraint",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "Before pushing any code to mac-agent repo: 1) Validate with eb2 sandbox first 2) After validation passes, audit with gpt-5-codex for suggestions 3) Only push after both steps complete. This is tier 1 - always enforce.",
+        "timestamp": "2026-01-08T15:51:34.206087+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      },
+      "rationale": "User requirement: all code must be validated in eb2 sandbox and audited by gpt-5-codex before pushing to mac-agent repository."
     }
   ],
   "session_log": {
