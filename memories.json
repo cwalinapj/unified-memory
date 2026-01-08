@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "last_sync": "2026-01-08T15:02:00.000000+00:00",
+  "memories": [
+    {
+      "id": "decd9615",
+      "type": "preference",
+      "content": "Paul prefers concise responses without excessive formatting",
+      "tags": [],
+      "provenance": {
+        "source": "claude",
+        "timestamp": "2026-01-08T14:08:36.922808+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    }
+  ],
+  "session_log": {
+    "last_checkpoint": "2026-01-08T15:02:00.000000+00:00",
+    "active_task": {
+      "name": "unified-memory-framework-setup",
+      "description": "Building unified memory substrate for Claude + Origin OS agents",
+      "started": "2026-01-08T14:00:00.000000+00:00",
+      "steps_completed": [
+        "Created ~/unified-memory/ directory structure",
+        "Wrote memory_client.py with 8 memory types",
+        "Wrote sync_github.py for GitHub push/pull",
+        "Wrote migrate_existing.py for legacy memory import",
+        "Installed skill to /mnt/skills/user/unified-memory-framework/",
+        "Initialized memories.json with 1 preference memory",
+        "Added session checkpoint functions to memory_client.py (get_session_state, checkpoint, start_task, end_task, get_recovery_context)",
+        "Created README.md with recovery protocol documentation"
+      ],
+      "next_steps": [
+        "Create GitHub repo cwalinapj/unified-memory",
+        "Initialize git in ~/unified-memory/",
+        "Seed foundational memories (constraints, decisions, procedures)",
+        "Run migration dry-run to preview legacy imports"
+      ],
+      "blockers": []
+    },
+    "history": []
+  }
+}
