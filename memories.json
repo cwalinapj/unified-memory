@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_sync": "2026-01-08T16:34:39.286243+00:00",
+  "last_sync": "2026-01-08T20:39:27.282368+00:00",
   "memories": [
     {
       "id": "decd9615",
@@ -19058,6 +19058,31 @@
       "created_at": "2026-01-08T20:37:41.129844+00:00",
       "source": "claude",
       "tags": []
+    },
+    {
+      "id": "c75b2d89",
+      "type": "observation",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "Mac-agent daemon on RunPod VERIFIED WORKING. LAM protocol functional: sent OBS signal, daemon formed memory fb7a0776, ACKed signal, emitted MEM_NEW response.",
+        "timestamp": "2026-01-08T20:39:27.225219+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "0026443a",
+      "type": "lesson",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "VIOLATION: Asked user about test signal instead of just doing it. Non-destructive verification tests execute autonomously.",
+        "timestamp": "2026-01-08T20:39:27.279178+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      },
+      "confidence": 1.0
     }
   ],
   "session_log": {
