@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_sync": "2026-01-08T16:34:39.286243+00:00",
+  "last_sync": "2026-01-08T20:32:56.631084+00:00",
   "memories": [
     {
       "id": "decd9615",
@@ -19050,6 +19050,69 @@
         "conversation_id": null
       },
       "confidence": 1.0
+    },
+    {
+      "id": "d192bd39",
+      "type": "observation",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "RunPod API key rp_JGbRSi4o7e39jz2q45R3D49anOC0t7DY2LmOoYjjhkc24f1m3j returns HTTP 401 Unauthorized. Key likely expired or revoked. Self-service options exhausted: cannot regenerate API key without RunPod dashboard access.",
+        "timestamp": "2026-01-08T20:22:45.720413+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "bda35c2d",
+      "type": "observation",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "Mac-agent daemon deployed to RunPod GPU pod fnzs3mhdavjb0m. RTX 4090 24GB, EU-RO-1, SSH: root@213.173.102.177:10145. Daemon PID 246 running at /workspace/mac-agent/agent/daemon.py. Syncs to unified-memory via GitHub PAT.",
+        "timestamp": "2026-01-08T20:31:50.545717+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      }
+    },
+    {
+      "id": "bb23b0ec",
+      "type": "lesson",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "RunPod containers use Docker init, not systemd. Cannot use systemctl. Deploy daemons with nohup/screen or add to container startup script.",
+        "timestamp": "2026-01-08T20:32:35.488059+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      },
+      "confidence": 1.0
+    },
+    {
+      "id": "6d5bb631",
+      "type": "decision",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "RunPod API key stored encrypted in macOS Keychain: security find-generic-password -a origin-os -s runpod-api-key -w. New key format: rpa_* (not rp_*). REST API: https://rest.runpod.io/v1/pods with Bearer auth.",
+        "timestamp": "2026-01-08T20:32:42.173332+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      },
+      "rationale": "User provided new key after old one expired. Encrypted storage per tier-1 constraint."
+    },
+    {
+      "id": "1fe75d86",
+      "type": "constraint",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "EXCEPTION to self-service constraint: Asking user for API keys/authentication credentials IS APPROPRIATE when services require new/updated auth. Cannot programmatically generate keys for external services without dashboard access.",
+        "timestamp": "2026-01-08T20:32:56.628028+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      },
+      "rationale": "User clarified: authentication requests are when asking is wanted."
     }
   ],
   "session_log": {
