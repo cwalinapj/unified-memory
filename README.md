@@ -50,6 +50,6 @@ python3 ~/unified-memory/scripts/memory_client.py recover
 - [x] sync_github.py for GitHub sync
 - [x] migrate_existing.py for legacy import
 - [x] Session checkpoint system added
-- [ ] GitHub repo created (cwalinapj/unified-memory)
-- [ ] Git initialized locally
+- [x] GitHub repo created (cwalinapj/unified-memory)
+- [x] Git initialized locally + pushed
 - [ ] Foundational memories seeded
