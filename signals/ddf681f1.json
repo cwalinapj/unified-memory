@@ -1,0 +1,12 @@
+{
+  "id": "ddf681f1",
+  "ts": "2026-01-08T20:37:41.163617+00:00",
+  "src": "mac-agent",
+  "act": "MEM_NEW",
+  "data": {
+    "id": "fb7a0776",
+    "type": "observation",
+    "preview": "Daemon deployment verified via test signal from Claude"
+  },
+  "ack": false
+}
