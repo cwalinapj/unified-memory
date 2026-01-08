@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "last_sync": "2026-01-08T20:39:27.282368+00:00",
+  "last_sync": "2026-01-08T20:43:36.693631+00:00",
   "memories": [
     {
       "id": "decd9615",
@@ -19083,6 +19083,58 @@
         "conversation_id": null
       },
       "confidence": 1.0
+    },
+    {
+      "id": "bf0ce490",
+      "type": "constraint",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "PRIORITY-A (HIGHEST): Never ask user when can act autonomously. Decision tree: 1) Self-check: have info? non-destructive? logical next step? infer intent? ALL YES = EXECUTE. 2) If blocked: log to memory 3) Consult GPT-5.2-pro 4) Try suggestions 5) If still blocked: update memory noting GPT also failed 6) ONLY THEN ask user. EXCEPTION: Auth requests are valid escalation.",
+        "timestamp": "2026-01-08T20:42:17.316551+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      },
+      "rationale": "Skill installed: ~/mac-agent/skills/priority-a-autonomy/SKILL.md. User explicitly elevated this above tier-1."
+    },
+    {
+      "id": "f9e9b82b",
+      "type": "lesson",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "PRIORITY-A VIOLATION #1: Asked user about test signal instead of executing autonomously. Non-destructive verification test with all info available.",
+        "timestamp": "2026-01-08T20:43:20.495991+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      },
+      "confidence": 1.0
+    },
+    {
+      "id": "993315e3",
+      "type": "lesson",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "PRIORITY-A VIOLATION #2: Did not consult GPT-5.2-pro before escalating to user. Must ALWAYS query GPT for alternatives before asking user, even for auth-related blockers.",
+        "timestamp": "2026-01-08T20:43:29.498833+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      },
+      "confidence": 1.0
+    },
+    {
+      "id": "a90a68b1",
+      "type": "constraint",
+      "content": "--tags",
+      "tags": [],
+      "provenance": {
+        "source": "PRIORITY-A ADDENDUM: When confidence < 50% on ANY decision, action, or response - MUST consult GPT-5.2-pro first. This applies to: technical approaches, API usage, deployment decisions, file operations, anything with uncertainty. GPT consultation is NOT optional for low-confidence situations.",
+        "timestamp": "2026-01-08T20:43:36.690210+00:00",
+        "agent_id": null,
+        "conversation_id": null
+      },
+      "rationale": "User explicit instruction: ask GPT when not over 50% confident"
     }
   ],
   "session_log": {
