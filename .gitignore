@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+onchain/node_modules/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Logs
+logs/*.log
+*.log
+
+# Secrets
+.env
+.env.*
+*.keys
+
+# Build
+dist/
+build/
+*.so
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Solana
+target/
+.anchor/
