@@ -1,0 +1,5 @@
+{"timestamp": "2026-01-10T08:19:52.813326Z", "agent_id": "gpt5-mini", "action": "register_agent"}
+{"timestamp": "2026-01-10T08:19:59.442488Z", "agent_id": "claude-code", "action": "register_agent"}
+{"timestamp": "2026-01-10T08:20:05.293390Z", "agent_id": "build-doctor", "action": "register_agent"}
+{"timestamp": "2026-01-10T08:20:49.658339Z", "agent_id": "gpt5-mini", "action": "search", "query": "anchor solana", "results": 3}
+{"timestamp": "2026-01-10T08:20:55.003697Z", "agent_id": "build-doctor", "action": "write", "memory_id": "mem-422b955f", "memory_type": "observation", "content_length": 38}

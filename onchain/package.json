@@ -1,0 +1,25 @@
+{
+  "name": "unified-memory-bridge",
+  "version": "1.0.0",
+  "description": "Bridge unified-memory to Solana org-memory-registry",
+  "main": "bridge.ts",
+  "scripts": {
+    "sync": "npx ts-node bridge.ts sync",
+    "status": "npx ts-node bridge.ts status",
+    "verify": "npx ts-node bridge.ts verify",
+    "batch": "npx ts-node bridge.ts batch",
+    "build": "tsc",
+    "test": "npx ts-node bridge.ts status"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.30.1",
+    "@noble/hashes": "^1.4.0",
+    "@solana/web3.js": "^1.95.0",
+    "bn.js": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.0"
+  }
+}

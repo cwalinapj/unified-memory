@@ -1,0 +1,45 @@
+{
+  "agents": {
+    "gpt5-mini": {
+      "agent_id": "gpt5-mini",
+      "name": "GPT-5-mini",
+      "description": null,
+      "rate_limit": 500,
+      "max_authority": 3,
+      "created_at": "2026-01-10T08:19:52.809537Z",
+      "requests_today": 0,
+      "reputation": 5000,
+      "total_writes": 0,
+      "total_reads": 1
+    },
+    "claude-code": {
+      "agent_id": "claude-code",
+      "name": "Claude Code",
+      "description": null,
+      "rate_limit": 1000,
+      "max_authority": 4,
+      "created_at": "2026-01-10T08:19:59.441244Z",
+      "requests_today": 0,
+      "reputation": 5000,
+      "total_writes": 0,
+      "total_reads": 0
+    },
+    "build-doctor": {
+      "agent_id": "build-doctor",
+      "name": "Build Doctor",
+      "description": "Compilation and dependency fixer",
+      "rate_limit": 200,
+      "max_authority": 2,
+      "created_at": "2026-01-10T08:20:05.291408Z",
+      "requests_today": 0,
+      "reputation": 5000,
+      "total_writes": 1,
+      "total_reads": 0
+    }
+  },
+  "keys": {
+    "9515f6c28f826c5cf13e2c124bf2fc9589b348b2c0bc44af211c9535f3571a78": "gpt5-mini",
+    "72456c57e5165c1aff9f248a54668e5567a9194d00c1edc244de9a1a2b8866ce": "claude-code",
+    "3f872ea09298fd5ea8c368580d06655f0001541faa6200a2ebdbc9c0cabcbaed": "build-doctor"
+  }
+}

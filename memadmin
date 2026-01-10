@@ -1,0 +1,223 @@
+#!/usr/bin/env python3
+"""
+Origin Memory Admin CLI
+
+Manage agents and API keys for the memory system.
+
+Usage:
+    memadmin register <agent_id> --name "GPT-5-mini" --authority 3
+    memadmin list
+    memadmin revoke <agent_id>
+    memadmin audit [--agent <agent_id>] [--limit 50]
+    memadmin test <api_key>
+"""
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+import httpx
+
+API_URL = "http://localhost:7438"
+ADMIN_KEY = "originos-admin-2026"  # Must match api_server.py
+
+
+def register_agent(args):
+    """Register a new agent."""
+    resp = httpx.post(
+        f"{API_URL}/admin/agents",
+        headers={"X-Admin-Key": ADMIN_KEY},
+        json={
+            "agent_id": args.agent_id,
+            "name": args.name,
+            "description": args.description,
+            "rate_limit": args.rate_limit,
+            "max_authority": args.authority
+        },
+        timeout=10.0
+    )
+    
+    if resp.status_code != 200:
+        print(f"❌ Error: {resp.json().get('detail', resp.text)}")
+        sys.exit(1)
+    
+    data = resp.json()
+    print(f"✅ Agent registered: {args.agent_id}")
+    print()
+    print(f"   Name:          {args.name}")
+    print(f"   Max Authority: {args.authority}")
+    print(f"   Rate Limit:    {args.rate_limit}/hour")
+    print()
+    print("=" * 60)
+    print(f"   API KEY: {data['api_key']}")
+    print("=" * 60)
+    print()
+    print("⚠️  Save this key! It will not be shown again.")
+
+
+def list_agents(args):
+    """List all registered agents."""
+    resp = httpx.get(
+        f"{API_URL}/admin/agents",
+        headers={"X-Admin-Key": ADMIN_KEY},
+        timeout=10.0
+    )
+    
+    if resp.status_code != 200:
+        print(f"❌ Error: {resp.text}")
+        sys.exit(1)
+    
+    agents = resp.json().get("agents", [])
+    
+    if not agents:
+        print("No agents registered.")
+        return
+    
+    print(f"{'ID':<20} {'Name':<20} {'Auth':<5} {'Rate':<8} {'Reads':<8} {'Writes':<8} {'Rep':<6}")
+    print("-" * 85)
+    
+    for a in agents:
+        print(f"{a['agent_id']:<20} {a['name']:<20} {a['max_authority']:<5} "
+              f"{a['rate_limit']:<8} {a.get('total_reads', 0):<8} "
+              f"{a.get('total_writes', 0):<8} {a.get('reputation', 5000):<6}")
+
+
+def revoke_agent(args):
+    """Revoke an agent's access."""
+    resp = httpx.delete(
+        f"{API_URL}/admin/agents/{args.agent_id}",
+        headers={"X-Admin-Key": ADMIN_KEY},
+        timeout=10.0
+    )
+    
+    if resp.status_code == 404:
+        print(f"❌ Agent not found: {args.agent_id}")
+        sys.exit(1)
+    elif resp.status_code != 200:
+        print(f"❌ Error: {resp.text}")
+        sys.exit(1)
+    
+    print(f"✅ Agent revoked: {args.agent_id}")
+
+
+def show_audit(args):
+    """Show audit log."""
+    params = {"limit": args.limit}
+    if args.agent:
+        params["agent_id"] = args.agent
+    
+    resp = httpx.get(
+        f"{API_URL}/admin/audit",
+        headers={"X-Admin-Key": ADMIN_KEY},
+        params=params,
+        timeout=10.0
+    )
+    
+    if resp.status_code != 200:
+        print(f"❌ Error: {resp.text}")
+        sys.exit(1)
+    
+    entries = resp.json().get("entries", [])
+    
+    if not entries:
+        print("No audit entries found.")
+        return
+    
+    for e in entries:
+        ts = e.get("timestamp", "")[:19].replace("T", " ")
+        agent = e.get("agent_id", "unknown")
+        action = e.get("action", "")
+        
+        # Format details
+        details = {k: v for k, v in e.items() if k not in ["timestamp", "agent_id", "action"]}
+        detail_str = ", ".join(f"{k}={v}" for k, v in details.items()) if details else ""
+        
+        print(f"[{ts}] {agent:<15} {action:<10} {detail_str}")
+
+
+def test_key(args):
+    """Test an API key."""
+    resp = httpx.get(
+        f"{API_URL}/v1/me",
+        headers={"Authorization": f"Bearer {args.api_key}"},
+        timeout=10.0
+    )
+    
+    if resp.status_code == 401:
+        print("❌ Invalid API key")
+        sys.exit(1)
+    elif resp.status_code != 200:
+        print(f"❌ Error: {resp.text}")
+        sys.exit(1)
+    
+    data = resp.json()
+    print("✅ API key is valid")
+    print()
+    print(f"   Agent ID:      {data['agent_id']}")
+    print(f"   Name:          {data['name']}")
+    print(f"   Max Authority: {data['max_authority']}")
+    print(f"   Rate Limit:    {data['rate_limit']}/hour")
+    print(f"   Reputation:    {data['reputation']}")
+    print(f"   Total Reads:   {data['total_reads']}")
+    print(f"   Total Writes:  {data['total_writes']}")
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Origin Memory Admin CLI",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  memadmin register gpt5-mini --name "GPT-5-mini" --authority 3
+  memadmin register build-doctor --name "Build Doctor" --authority 2 --rate 500
+  memadmin list
+  memadmin revoke old-agent
+  memadmin audit --limit 20
+  memadmin test omem_xxxxx
+        """
+    )
+    
+    subparsers = parser.add_subparsers(dest="command", required=True)
+    
+    # Register
+    reg = subparsers.add_parser("register", help="Register a new agent")
+    reg.add_argument("agent_id", help="Unique agent ID (lowercase, alphanumeric, -, _)")
+    reg.add_argument("--name", "-n", required=True, help="Human-readable name")
+    reg.add_argument("--description", "-d", help="Agent description")
+    reg.add_argument("--authority", "-a", type=int, default=3, help="Max authority level (0-5)")
+    reg.add_argument("--rate-limit", "-r", type=int, default=100, dest="rate_limit", help="Rate limit per hour")
+    reg.set_defaults(func=register_agent)
+    
+    # List
+    lst = subparsers.add_parser("list", help="List all agents")
+    lst.set_defaults(func=list_agents)
+    
+    # Revoke
+    rev = subparsers.add_parser("revoke", help="Revoke agent access")
+    rev.add_argument("agent_id", help="Agent ID to revoke")
+    rev.set_defaults(func=revoke_agent)
+    
+    # Audit
+    aud = subparsers.add_parser("audit", help="Show audit log")
+    aud.add_argument("--limit", "-l", type=int, default=50, help="Number of entries")
+    aud.add_argument("--agent", "-a", help="Filter by agent ID")
+    aud.set_defaults(func=show_audit)
+    
+    # Test
+    tst = subparsers.add_parser("test", help="Test an API key")
+    tst.add_argument("api_key", help="API key to test")
+    tst.set_defaults(func=test_key)
+    
+    args = parser.parse_args()
+    
+    try:
+        args.func(args)
+    except httpx.ConnectError:
+        print("❌ Cannot connect to API server. Is it running?")
+        print("   Start with: python3 ~/unified-memory/api_server.py")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

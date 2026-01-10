@@ -1,0 +1,41 @@
+[MEMO] Loading model and index...
+Loading embedding model: all-MiniLM-L6-v2
+
+🧠 Memory API Server
+   http://localhost:7437
+
+Endpoints:
+   POST /search   - Semantic search
+   POST /context  - LLM context injection
+   POST /write    - Write new memory (auto-rebuilds)
+   POST /rebuild  - Force rebuild index
+   GET  /health   - Health check
+   GET  /stats    - Memory statistics
+
+Press Ctrl+C to stop
+
+[MEMO] GET /health HTTP/1.1
+[MEMO] GET /stats HTTP/1.1
+[MEMO] POST /write HTTP/1.1
+[MEMO] Rebuilding index...
+Indexing 11 memories...
+Generating embeddings...
+✅ Index built: 11 memories, 384 dimensions
+   Saved to: /Users/root1/unified-memory/index
+
+By type:
+  lesson: 4
+  procedure: 2
+  observation: 2
+  hypothesis: 1
+  constraint: 1
+  decision: 1
+[MEMO] Index rebuilt successfully
+[MEMO] GET /stats HTTP/1.1
+[MEMO] POST /search HTTP/1.1
+[MEMO] GET /health HTTP/1.1
+[MEMO] POST /search HTTP/1.1
+[MEMO] POST /write HTTP/1.1
+[MEMO] Rebuilding index...
+Indexing 12 memories...
+Generating embeddings...

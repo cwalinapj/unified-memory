@@ -1,0 +1,21 @@
+{
+  "name": "unified-memory",
+  "version": "1.0.0",
+  "description": "```bash # Read memory summary python3 ~/unified-memory/scripts/memory_client.py summary",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cwalinapj/unified-memory.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/cwalinapj/unified-memory/issues"
+  },
+  "homepage": "https://github.com/cwalinapj/unified-memory#readme"
+}

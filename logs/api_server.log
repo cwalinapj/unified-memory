@@ -1,0 +1,15 @@
+INFO:     Started server process [65639]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:7438 (Press CTRL+C to quit)
+🚀 Origin Memory API starting on port 7438
+   Internal FAISS API: http://localhost:7437
+   Agents registered: 0
+INFO:     127.0.0.1:59192 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59201 - "POST /admin/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59202 - "POST /admin/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59203 - "POST /admin/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59206 - "POST /v1/search HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59210 - "POST /v1/write HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59214 - "GET /admin/audit?limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59215 - "GET /admin/agents HTTP/1.1" 200 OK

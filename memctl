@@ -1,0 +1,246 @@
+#!/bin/bash
+# Origin Memory Control Script
+# Manages both internal FAISS server (7437) and external API server (7438)
+
+FAISS_PLIST="$HOME/Library/LaunchAgents/com.originos.memory-server.plist"
+API_PLIST="$HOME/Library/LaunchAgents/com.originos.memory-api.plist"
+LOG_DIR="$HOME/unified-memory/logs"
+
+# Colors
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+check_faiss() {
+    curl -s http://localhost:7437/health > /dev/null 2>&1
+}
+
+check_api() {
+    curl -s http://localhost:7438/health > /dev/null 2>&1
+}
+
+case "$1" in
+    start)
+        echo "Starting Origin Memory servers..."
+        
+        # Start FAISS server
+        echo -n "  FAISS (7437): "
+        launchctl load "$FAISS_PLIST" 2>/dev/null
+        sleep 2
+        if check_faiss; then
+            echo -e "${GREEN}✅ running${NC}"
+        else
+            echo -e "${RED}❌ failed${NC}"
+        fi
+        
+        # Start API server
+        echo -n "  API   (7438): "
+        launchctl load "$API_PLIST" 2>/dev/null
+        sleep 2
+        if check_api; then
+            echo -e "${GREEN}✅ running${NC}"
+        else
+            echo -e "${RED}❌ failed${NC}"
+        fi
+        ;;
+        
+    stop)
+        echo "Stopping Origin Memory servers..."
+        launchctl unload "$FAISS_PLIST" 2>/dev/null
+        launchctl unload "$API_PLIST" 2>/dev/null
+        echo -e "${GREEN}✅ Stopped${NC}"
+        ;;
+        
+    restart)
+        $0 stop
+        sleep 1
+        $0 start
+        ;;
+        
+    status)
+        echo "Origin Memory Status"
+        echo "===================="
+        echo ""
+        
+        # FAISS server
+        echo -n "FAISS Server (localhost:7437): "
+        if check_faiss; then
+            echo -e "${GREEN}✅ running${NC}"
+            curl -s http://localhost:7437/stats 2>/dev/null | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+print(f\"  Memories: {d.get('total', 0)}\")
+print(f\"  Index: {'✓' if d.get('index_exists') else '✗'}\")
+types = d.get('by_type', {})
+if types:
+    print(f\"  Types: {', '.join(f'{k}:{v}' for k,v in types.items())}\")" 2>/dev/null
+        else
+            echo -e "${RED}❌ not running${NC}"
+        fi
+        
+        echo ""
+        
+        # API server
+        echo -n "API Server (localhost:7438):   "
+        if check_api; then
+            echo -e "${GREEN}✅ running${NC}"
+            curl -s http://localhost:7438/health 2>/dev/null | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+print(f\"  Internal API: {d.get('internal_api', 'unknown')}\")
+print(f\"  Agents: {d.get('agents_registered', 0)}\")" 2>/dev/null
+        else
+            echo -e "${RED}❌ not running${NC}"
+        fi
+        
+        echo ""
+        
+        # MCP server
+        echo -n "MCP Server (Claude Desktop):   "
+        if [ -f "$HOME/unified-memory/mcp_server.py" ]; then
+            echo -e "${GREEN}✅ installed${NC}"
+            echo "  Restart Claude Desktop to activate"
+        else
+            echo -e "${YELLOW}⚠️  not installed${NC}"
+        fi
+        ;;
+        
+    logs)
+        SERVICE="${2:-all}"
+        case "$SERVICE" in
+            faiss)
+                echo "=== FAISS Server Log ==="
+                tail -50 "$LOG_DIR/server.log" 2>/dev/null || echo "No logs"
+                ;;
+            api)
+                echo "=== API Server Log ==="
+                tail -50 "$LOG_DIR/api_server.log" 2>/dev/null || echo "No logs"
+                ;;
+            audit)
+                echo "=== Audit Log (last 20) ==="
+                tail -20 "$LOG_DIR/api_audit.jsonl" 2>/dev/null | python3 -c "
+import sys, json
+for line in sys.stdin:
+    try:
+        e = json.loads(line)
+        ts = e.get('timestamp', '')[:19].replace('T', ' ')
+        agent = e.get('agent_id', '?')
+        action = e.get('action', '?')
+        print(f'[{ts}] {agent:<15} {action}')
+    except: pass" 2>/dev/null || echo "No audit entries"
+                ;;
+            *)
+                echo "=== FAISS Server (last 20) ==="
+                tail -20 "$LOG_DIR/server.log" 2>/dev/null || echo "No logs"
+                echo ""
+                echo "=== API Server (last 20) ==="
+                tail -20 "$LOG_DIR/api_server.log" 2>/dev/null || echo "No logs"
+                ;;
+        esac
+        ;;
+        
+    test)
+        echo "Testing memory system..."
+        echo ""
+        
+        # Test FAISS
+        echo "1. FAISS Search (internal):"
+        curl -s -X POST http://localhost:7437/search \
+            -H "Content-Type: application/json" \
+            -d '{"query":"anchor solana","n":2}' | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+for r in d.get('results', [])[:2]:
+    print(f\"   [{r['type']}] {r['content'][:60]}...\")" 2>/dev/null || echo "   ❌ FAISS not responding"
+        
+        echo ""
+        echo "2. API Health:"
+        curl -s http://localhost:7438/health | python3 -m json.tool 2>/dev/null || echo "   ❌ API not responding"
+        ;;
+        
+    search)
+        if [ -z "$2" ]; then
+            echo "Usage: memctl search 'query' [top_k]"
+            exit 1
+        fi
+        N="${3:-5}"
+        curl -s -X POST http://localhost:7437/search \
+            -H "Content-Type: application/json" \
+            -d "{\"query\":\"$2\",\"n\":$N}" | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+results = d.get('results', [])
+if not results:
+    print('No results found')
+else:
+    for i, r in enumerate(results, 1):
+        score = r.get('score', 0)
+        bar = '█' * int(score * 10) + '░' * (10 - int(score * 10))
+        print(f\"{i}. [{r['type']}] (score:{score:.2f} {bar})\")
+        print(f\"   {r['content'][:100]}...\")
+        print()" 2>/dev/null
+        ;;
+        
+    write)
+        if [ -z "$2" ]; then
+            echo "Usage: memctl write 'content' [type] [tag1,tag2]"
+            echo ""
+            echo "Types: hypothesis, observation, preference, lesson, goal, procedure, decision, constraint"
+            exit 1
+        fi
+        TYPE="${3:-observation}"
+        TAGS="${4:-}"
+        
+        if [ -n "$TAGS" ]; then
+            TAGS_JSON="[\"$(echo $TAGS | sed 's/,/","/g')\"]"
+        else
+            TAGS_JSON="[]"
+        fi
+        
+        curl -s -X POST http://localhost:7437/write \
+            -H "Content-Type: application/json" \
+            -d "{\"content\":\"$2\",\"type\":\"$TYPE\",\"tags\":$TAGS_JSON}" | python3 -m json.tool
+        ;;
+        
+    rebuild)
+        echo "Rebuilding FAISS index..."
+        curl -s -X POST http://localhost:7437/rebuild | python3 -m json.tool
+        ;;
+        
+    agents)
+        echo "Registered Agents"
+        echo "================="
+        python3 "$HOME/unified-memory/memadmin" list 2>/dev/null || echo "Run: memctl start"
+        ;;
+        
+    *)
+        echo "Origin Memory Control"
+        echo "====================="
+        echo ""
+        echo "Usage: memctl <command> [args]"
+        echo ""
+        echo "Server Control:"
+        echo "  start              Start all memory servers"
+        echo "  stop               Stop all memory servers"
+        echo "  restart            Restart all servers"
+        echo "  status             Check server status"
+        echo ""
+        echo "Memory Operations:"
+        echo "  search 'query'     Search memories"
+        echo "  write 'text' [type] [tags]  Write a memory"
+        echo "  rebuild            Rebuild FAISS index"
+        echo ""
+        echo "Admin:"
+        echo "  agents             List registered agents"
+        echo "  logs [faiss|api|audit]  View logs"
+        echo "  test               Test memory system"
+        echo ""
+        echo "Servers:"
+        echo "  FAISS  - localhost:7437 (internal vector search)"
+        echo "  API    - localhost:7438 (authenticated external API)"
+        echo "  MCP    - Claude Desktop (origin-memory)"
+        echo ""
+        echo "For agent management, use: memadmin --help"
+        ;;
+esac
